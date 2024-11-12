@@ -1,30 +1,11 @@
 import logging
 from config import Config
-from utils import (
-    setup_logging, 
-    ensure_directories, 
-    load_sample_data, 
-    calculate_metrics,
-    prepare_model_input,
-    save_results
-)
+from utils import setup_logging, ensure_directories, calculate_metrics, prepare_model_input, save_results
+from dataset import MIMICSDataset  # Import the new dataset class
 import torch
-# Update this line
-# from transformers import AutoTokenizer, AutoModelForSeq2SeqGenerationWithLMHead
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-from torch.utils.data import Dataset, DataLoader
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM  # Fixed import
 from tqdm import tqdm
 from typing import List, Dict, Any
-
-class SimpleMIMICSDataset(Dataset):
-    def __init__(self, data_dir: str, split: str = "train"):
-        self.data = load_sample_data()
-    
-    def __len__(self) -> int:
-        return len(self.data)
-    
-    def __getitem__(self, idx: int) -> Dict[str, Any]:
-        return self.data[idx]
 
 class ClarifyingQuestionSystem:
     def __init__(self, config: Config):
@@ -35,16 +16,39 @@ class ClarifyingQuestionSystem:
         """Initialize the model and tokenizer"""
         logging.info(f"Loading model: {self.config.MODEL_NAME}")
         self.tokenizer = AutoTokenizer.from_pretrained(self.config.MODEL_NAME)
-        # Update this line
-        # self.model = AutoModelForSeq2SeqGenerationWithLMHead.from_pretrained(self.config.MODEL_NAME)
         self.model = AutoModelForSeq2SeqLM.from_pretrained(self.config.MODEL_NAME)
         
         self.model = self.model.to(self.config.DEVICE)
         logging.info(f"Using device: {self.config.DEVICE}")
     
+    # def generate_question(self, query: str, snippets: List[str]) -> str:
+    #     """Generate a clarifying question"""
+    #     inputs = prepare_model_input(self.tokenizer, query, snippets, self.config)
+        
+    #     with torch.no_grad():
+    #         outputs = self.model.generate(
+    #             input_ids=inputs['input_ids'],
+    #             attention_mask=inputs['attention_mask'],
+    #             max_length=self.config.MAX_QUESTION_LENGTH,
+    #             num_beams=4,
+    #             no_repeat_ngram_size=3
+    #         )
+        
+    #     question = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+    #     return question
+
     def generate_question(self, query: str, snippets: List[str]) -> str:
         """Generate a clarifying question"""
-        inputs = prepare_model_input(self.tokenizer, query, snippets, self.config)
+        # Prepare input text that includes query and available options
+        input_text = f"Query: {query}\nOptions: {' | '.join(snippets)}\n"
+        
+        inputs = self.tokenizer(
+            input_text,
+            max_length=self.config.MAX_LENGTH,
+            padding=True,
+            truncation=True,
+            return_tensors="pt"
+        ).to(self.config.DEVICE)
         
         with torch.no_grad():
             outputs = self.model.generate(
@@ -52,11 +56,19 @@ class ClarifyingQuestionSystem:
                 attention_mask=inputs['attention_mask'],
                 max_length=self.config.MAX_QUESTION_LENGTH,
                 num_beams=4,
-                no_repeat_ngram_size=3
+                no_repeat_ngram_size=3,
+                early_stopping=True
             )
         
         question = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
-        return question
+        
+        # Clean up the generated question
+        if "Query:" in question:
+            question = question.split("Query:")[0]
+        if "Options:" in question:
+            question = question.split("Options:")[0]
+            
+        return question.strip()
 
 def run_demo():
     # Setup
@@ -66,7 +78,16 @@ def run_demo():
     
     # Initialize configurations and system
     config = Config()
-    dataset = SimpleMIMICSDataset(config.DATA_DIR)
+    
+    # Use the new dataset loader
+    dataset = MIMICSDataset(
+        data_dir=config.DATA_DIR,
+        split="train",  # or "test" for evaluation
+        retriever_type="bing",  # or "bm25" or "contriever"
+        max_documents=config.NUM_DOCUMENTS,
+        tokenizer_name=config.MODEL_NAME
+    )
+    
     system = ClarifyingQuestionSystem(config)
     
     logging.info(f"Loaded dataset with {len(dataset)} examples")
@@ -78,7 +99,7 @@ def run_demo():
     logging.info("Generating clarifying questions:")
     for example in tqdm(dataset):
         query = example['query']
-        snippets = example['snippets']
+        snippets = example['evidence_documents']
         ground_truth = example['question']
         
         # Generate question

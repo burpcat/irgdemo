@@ -70,14 +70,20 @@ def calculate_metrics(generated: str, reference: str) -> Dict[str, float]:
 
 def prepare_model_input(tokenizer, query: str, snippets: List[str], config: Config) -> Dict[str, torch.Tensor]:
     """Prepare input for the model"""
-    input_text = f"Query: {query}\nContext: {' '.join(snippets)}\nGenerate a clarifying question:"
+    # Format snippets into a single context string
+    context = " [SEP] ".join([s.strip() for s in snippets if s.strip()])
     
+    # Create input text with special tokens
+    input_text = f"Query: {query.strip()} Context: {context}"
+    
+    # Tokenize
     inputs = tokenizer(
         input_text,
         max_length=config.MAX_LENGTH,
         **config.TOKENIZER_KWARGS
     )
     
+    # Move to correct device
     if torch.cuda.is_available():
         inputs = {k: v.cuda() for k, v in inputs.items()}
         

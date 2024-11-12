@@ -18,6 +18,8 @@ class Config:
     
     # Retrieval parameters
     NUM_DOCUMENTS = 10
+    RETRIEVER_TYPE = "bing"  # Options: "bing", "bm25", "contriever"
+    USE_FACET_ALIGNMENT = False  # Whether to use |Q,F retrieval
     
     # Device configuration
     DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
@@ -28,3 +30,7 @@ class Config:
         "truncation": True,
         "return_tensors": "pt"
     }
+    
+    # Index paths for retrievers
+    MSMARCO_INDEX_PATH = "./data/msmarco-index"  # Path to Pyserini index
+    CONTRIEVER_MODEL_NAME = "facebook/contriever-msmarco"
