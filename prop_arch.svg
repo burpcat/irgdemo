@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+    <!-- Background -->
+    <rect width="900" height="600" fill="#ffffff"/>
+    
+    <!-- Input Layer -->
+    <g>
+        <!-- Query Input -->
+        <rect x="50" y="50" width="150" height="60" fill="#e3f2fd" stroke="#1565c0" stroke-width="2" rx="5"/>
+        <text x="125" y="85" text-anchor="middle" font-family="Arial" font-size="14">Ambiguous Query</text>
+        
+        <!-- Document Collection -->
+        <rect x="50" y="130" width="150" height="60" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2" rx="5"/>
+        <text x="125" y="165" text-anchor="middle" font-family="Arial" font-size="14">Document Collection</text>
+    </g>
+
+    <!-- Enhanced Retrieval System -->
+    <g>
+        <rect x="280" y="50" width="200" height="180" fill="#fff3e0" stroke="#ef6c00" stroke-width="2" rx="5"/>
+        <text x="380" y="80" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold">Hierarchical Retrieval</text>
+        
+        <!-- Retrieval Components -->
+        <rect x="295" y="95" width="170" height="35" fill="#ffe0b2" stroke="#ef6c00" stroke-width="1" rx="3"/>
+        <text x="380" y="117" text-anchor="middle" font-family="Arial" font-size="12">Topic Identification</text>
+        
+        <rect x="295" y="140" width="170" height="35" fill="#ffe0b2" stroke="#ef6c00" stroke-width="1" rx="3"/>
+        <text x="380" y="162" text-anchor="middle" font-family="Arial" font-size="12">Reinforcement Learning</text>
+        
+        <rect x="295" y="185" width="170" height="35" fill="#ffe0b2" stroke="#ef6c00" stroke-width="1" rx="3"/>
+        <text x="380" y="207" text-anchor="middle" font-family="Arial" font-size="12">Dynamic Diversity</text>
+    </g>
+
+    <!-- Advanced Processing -->
+    <g>
+        <rect x="560" y="50" width="200" height="180" fill="#f3e5f5" stroke="#6a1b9a" stroke-width="2" rx="5"/>
+        <text x="660" y="80" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold">FiD Enhancement</text>
+        
+        <!-- Processing Components -->
+        <rect x="575" y="95" width="170" height="35" fill="#e1bee7" stroke="#8e24aa" stroke-width="1" rx="3"/>
+        <text x="660" y="117" text-anchor="middle" font-family="Arial" font-size="12">Multi-Document Fusion</text>
+        
+        <rect x="575" y="140" width="170" height="35" fill="#e1bee7" stroke="#8e24aa" stroke-width="1" rx="3"/>
+        <text x="660" y="162" text-anchor="middle" font-family="Arial" font-size="12">Contrastive Learning</text>
+        
+        <rect x="575" y="185" width="170" height="35" fill="#e1bee7" stroke="#8e24aa" stroke-width="1" rx="3"/>
+        <text x="660" y="207" text-anchor="middle" font-family="Arial" font-size="12">Grounding Module</text>
+    </g>
+
+    <!-- Training Framework -->
+    <g>
+        <rect x="280" y="280" width="480" height="140" fill="#e0f7fa" stroke="#006064" stroke-width="2" rx="5"/>
+        <text x="520" y="310" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold">Multi-Objective Training</text>
+        
+        <!-- Training Components -->
+        <rect x="295" y="330" width="140" height="35" fill="#b2ebf2" stroke="#006064" stroke-width="1" rx="3"/>
+        <text x="365" y="352" text-anchor="middle" font-family="Arial" font-size="12">Corpus Alignment</text>
+        
+        <rect x="450" y="330" width="140" height="35" fill="#b2ebf2" stroke="#006064" stroke-width="1" rx="3"/>
+        <text x="520" y="352" text-anchor="middle" font-family="Arial" font-size="12">Question Diversity</text>
+        
+        <rect x="605" y="330" width="140" height="35" fill="#b2ebf2" stroke="#006064" stroke-width="1" rx="3"/>
+        <text x="675" y="352" text-anchor="middle" font-family="Arial" font-size="12">Hallucination Prevention</text>
+    </g>
+
+    <!-- Evaluation System -->
+    <g>
+        <rect x="280" y="470" width="480" height="80" fill="#f5f5f5" stroke="#212121" stroke-width="2" rx="5"/>
+        <text x="520" y="500" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold">Enhanced Evaluation Framework</text>
+        <text x="520" y="525" text-anchor="middle" font-family="Arial" font-size="12">Corpus Alignment + Utility Score + Diversity Metrics</text>
+    </g>
+
+    <!-- Arrows -->
+    <!-- Input to Retrieval -->
+    <path d="M200 110 L280 140" fill="none" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <path d="M200 160 L280 140" fill="none" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+    
+    <!-- Retrieval to Processing -->
+    <path d="M480 140 L560 140" fill="none" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+    
+    <!-- Processing to Training -->
+    <path d="M660 230 L660 280" fill="none" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+    
+    <!-- Training to Evaluation -->
+    <path d="M520 420 L520 470" fill="none" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+    <!-- Arrow Marker -->
+    <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#666"/>
+        </marker>
+    </defs>
+</svg>

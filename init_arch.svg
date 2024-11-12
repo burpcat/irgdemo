@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+    <!-- Background -->
+    <rect width="800" height="500" fill="#ffffff"/>
+    
+    <!-- Document Collection Box -->
+    <rect x="50" y="50" width="150" height="80" fill="#e3f2fd" stroke="#1565c0" stroke-width="2" rx="5"/>
+    <text x="125" y="95" text-anchor="middle" font-family="Arial" font-size="14">Document Collection</text>
+    
+    <!-- User Query Box -->
+    <rect x="50" y="200" width="150" height="80" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2" rx="5"/>
+    <text x="125" y="245" text-anchor="middle" font-family="Arial" font-size="14">User Query</text>
+
+    <!-- Retrieval Component -->
+    <rect x="280" y="125" width="160" height="100" fill="#fff3e0" stroke="#ef6c00" stroke-width="2" rx="5"/>
+    <text x="360" y="160" text-anchor="middle" font-family="Arial" font-size="14">Retrieval Component</text>
+    <text x="360" y="180" text-anchor="middle" font-family="Arial" font-size="12" fill="#666">(BM25/Contriever)</text>
+    <text x="360" y="200" text-anchor="middle" font-family="Arial" font-size="12" fill="#666">Evidence Documents</text>
+
+    <!-- FiD Model Box -->
+    <rect x="520" y="100" width="200" height="150" fill="#f3e5f5" stroke="#6a1b9a" stroke-width="2" rx="5"/>
+    <text x="620" y="130" text-anchor="middle" font-family="Arial" font-size="14" font-weight="bold">Fusion-in-Decoder (FiD)</text>
+    
+    <!-- FiD Components -->
+    <rect x="535" y="145" width="170" height="35" fill="#e1bee7" stroke="#8e24aa" stroke-width="1" rx="3"/>
+    <text x="620" y="167" text-anchor="middle" font-family="Arial" font-size="12">Independent Document Encoding</text>
+    
+    <rect x="535" y="190" width="170" height="35" fill="#e1bee7" stroke="#8e24aa" stroke-width="1" rx="3"/>
+    <text x="620" y="212" text-anchor="middle" font-family="Arial" font-size="12">Cross-attention Decoder</text>
+
+    <!-- Output Box -->
+    <rect x="520" y="300" width="200" height="100" fill="#e0f7fa" stroke="#006064" stroke-width="2" rx="5"/>
+    <text x="620" y="335" text-anchor="middle" font-family="Arial" font-size="14">Generated</text>
+    <text x="620" y="355" text-anchor="middle" font-family="Arial" font-size="14">Clarifying Question</text>
+    <text x="620" y="375" text-anchor="middle" font-family="Arial" font-size="12" fill="#666">Corpus-informed</text>
+
+    <!-- Arrows -->
+    <!-- Document Collection to Retrieval -->
+    <path d="M200 90 L280 150" fill="none" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+    
+    <!-- Query to Retrieval -->
+    <path d="M200 240 L280 190" fill="none" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+    
+    <!-- Retrieval to FiD -->
+    <path d="M440 175 L520 175" fill="none" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+    
+    <!-- FiD to Output -->
+    <path d="M620 250 L620 300" fill="none" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+    <!-- Arrow Marker -->
+    <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#666"/>
+        </marker>
+    </defs>
+</svg>
